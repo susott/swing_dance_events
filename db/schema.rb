@@ -17,10 +17,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_091012) do
   create_table "events", force: :cascade do |t|
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
-    t.datetime "sign_up_start_date", null: false
+    t.datetime "sign_up_start_date"
     t.string "title", null: false
-    t.string "contact_email", null: false
-    t.string "contact_name", null: false
+    t.string "event_email"
     t.string "website"
     t.string "description", null: false
     t.string "country", null: false
