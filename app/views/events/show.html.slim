@@ -10,10 +10,13 @@ html
         h1 = @event.title
 
         div
-          = @event.start_date
-          br
-          = @event.website
-          <br>
+          p
+            = link_to @event.website, target: "_blank", rel: "nofollow" 
+            br
+            = "#{@event.start_date.strftime("%B %d, %Y")} to #{@event.end_date.strftime("%B %d, %Y")}"
+            br
+            = @event.dance_types.join(', ').humanize
+            
           = @event.description
           / description, country, city, dance_types, sign_up_start_date
       - else

@@ -1,16 +1,14 @@
-  main class='container'
-    h2
-      | Upcoming Swing Dance Events
+  h2
+    | Upcoming Swing Dance Events
 
-    / button
-    /   = link_to "Submit New Event", new_event_path
+  / button
+  /   = link_to "Submit New Event", new_event_path
 
-    = render "filter_section"
-    
-    - unless @events.empty?
-      = render "list_card"
-      
-    - else
-      | No events found. Please add some.
-        Thank you!
+  = render "filter_section"
   
+  - unless @events.empty?
+    = render "list_card"
+    
+  - else
+    | No events found. Please add some.
+      Thank you!
