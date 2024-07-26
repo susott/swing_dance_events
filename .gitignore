@@ -37,3 +37,7 @@
 
 # my stuff
 /notes
+/jobs/scrape_results
+/jobs/scrape_results.html
+/jobs
+/.gitignore
