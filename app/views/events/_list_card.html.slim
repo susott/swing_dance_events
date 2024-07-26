@@ -1,0 +1,8 @@
+table
+  - @events.upcoming.order('start_date').map do |event|
+    tr
+      td.name = link_to event.title, event_path(event), target: "_blank"
+      /, rel: "nofollow" / only needed if I decide to use event.website
+      td.city = event.city
+      / td.country = event.country
+      td.date = event.start_date.strftime("%B %d, %Y")

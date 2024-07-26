@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Event
+  body
+    
+    #content
+      - if @event.present?
+
+        h1 = @event.title
+
+        div
+          = @event.start_date
+          br
+          = @event.website
+          <br>
+          = @event.description
+          / description, country, city, dance_types, sign_up_start_date
+      - else
+        p
+         | Sorry. This event can not be found.

@@ -1,0 +1,31 @@
+h1 New Event
+
+= form_with model: @event do |f|
+  div
+    = f.label :title, "Name of the event"
+    = f.text_field :title
+    / = @event.errors.full_messages_for(:title).each do |message|
+    /   div
+    /     message
+  div
+    = f.label :description
+    = f.text_area :description
+
+  div
+    = f.label :start_date
+    = f.date_select :start_date
+  
+  div
+    = f.label :end_date
+    = f.date_select :end_date
+
+  div
+    = f.label :country
+    = f.text_field :country
+
+  div
+    = f.label :city
+    = f.text_field :city
+
+  div
+    = f.submit "Submit Event"

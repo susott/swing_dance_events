@@ -1,0 +1,9 @@
+form
+  fieldset class="grid"
+    input name="city" placeholder='City'
+    input name="country" placeholder='Country'
+    select name="dance_type" aria-label="Select dance type"
+      - Event::DANCE_TYPES.each do |dance|
+        option = dance
+        / TODO: dance.humanize, but pass dance as value??
+    input type="submit" value="Filter"
