@@ -3,7 +3,7 @@ form
     input name="city" placeholder='City'
     input name="country" placeholder='Country'
     select name="dance_type" aria-label="Select dance type"
+      <option disabled selected value></option>
       - Event::DANCE_TYPES.each do |dance|
-        option = dance
-        / TODO: dance.humanize, but pass dance as value??
+        <option value="#{dance}"> #{dance.humanize} </option>
     input type="submit" value="Filter"

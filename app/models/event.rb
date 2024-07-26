@@ -15,9 +15,6 @@ class Event < ApplicationRecord
   scope :filter_by_country, -> (country) { where(country: country) }
   scope :filter_by_dance_types, -> (dance) { where('DANCE_TYPES && array[?]', dance)}
 
-  # website should be an URI thingy
-  # description can be empty ?
-
   # currently only used for comand line
   def upcoming?
     end_date > Date.today
