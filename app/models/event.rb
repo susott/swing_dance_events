@@ -27,6 +27,6 @@ class Event < ApplicationRecord
   end
 
   def supported_dance_types
-    errors.add(:dance_types, "Unsupported dance type") if (dance_types - DanceType::DANCE_TYPES).present?
+    errors.add(:dance_types, "Unsupported dance type") if (dance_types - Event::DANCE_TYPES).present?
   end
 end
