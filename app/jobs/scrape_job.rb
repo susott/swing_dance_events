@@ -1,10 +1,9 @@
 
 class ScrapeJob < ActiveJob::Base
-
   def self.perform
     # get_data # This will hit the page, so don't do that too often
-    links = collect_links
-    # visit_links(links) # This will hit the page, so don't do that too often
+    # links = collect_links
+    # visit_links(links) # This will hit all the subpages, so don't do that too often
 
     Dir.glob('app/jobs/scrape_results/*.html') do |filename|
       extract_data_for_event(File.read(filename))
@@ -33,7 +32,8 @@ class ScrapeJob < ActiveJob::Base
     # - Find all div class="pins">Germany</div>
     listed_event = document.search('.maintitles')
     links = listed_event.map do |event|
-      if event.search('.pins').text == 'Germany'
+      country = event.search('.pins').text
+      if Event::SUPPORTED_COUNTRIES.include?(country)
         event.attribute_nodes.first.value
       else
         nil
@@ -70,15 +70,16 @@ class ScrapeJob < ActiveJob::Base
     event.country = details[1].text.delete_prefix("\nCountry: ")
     event.city = details[2].text.delete_prefix("\nTown: ")
     event.website = details[3].text.delete_prefix("\nWebsite: ").delete_suffix("\n")
-    # event.dance_types = details[4].text.delete_prefix("\nStyles: ").split(', ') # TODO
+    dance_styles = details[4].text.delete_prefix("\nStyles: ").split(', ')
+    event.dance_types = dance_styles.map { |dance_type| dance_type.parameterize.underscore }
 
     event.title = document.title
     event.description = document.search(".scroll-pane2").text.delete_prefix("\n\t\t\t\t\t\t\t").delete_suffix("\n\t\t\t\t\t\t")
     
-    if event.save!
+    begin event.save!
       'all good'
-    else
-      console.log("Problems to save event #{event.title}")
+    rescue ActiveRecord::RecordInvalid
+      debugger
     end
   end
 end
