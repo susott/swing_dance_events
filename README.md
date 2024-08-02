@@ -2,6 +2,9 @@
 
 Rails app to show swing dance events filterable by city and country.
 
+Currently deployed on a free plan here: https://swing-dance-events.onrender.com/
+
+
 <!-- # README
 
 This README would normally document whatever steps are necessary to get the
