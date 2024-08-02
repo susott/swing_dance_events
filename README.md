@@ -1,6 +1,6 @@
 # About
 
-Rails app to show swing dance events and make those filterable by city and country.
+Rails app to show swing dance events filterable by city and country.
 
 <!-- # README
 
