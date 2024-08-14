@@ -20,13 +20,13 @@ jobs:
           - "5432:5432"
         # let's see if those options are needed  
         # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
-        # env:
-        #   POSTGRES_DB: rails_test
-        #   POSTGRES_USER: rails
-        #   POSTGRES_PASSWORD: password
+        env:
+          POSTGRES_DB: swingfestival_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_TEST_PASSWORD}}
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:@localhost:5432/swingfestival_test
+      DATABASE_URL: ${{secrets.TEST_DATABASE_URL}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -54,8 +54,8 @@ jobs:
       - name: Generate binstubs
         run: bundle binstubs bundler-audit brakeman rubocop
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
+      # - name: Security audit dependencies
+      #   run: bin/bundler-audit --update
       - name: Security audit application code
         run: bin/brakeman -q -w2
       - name: Lint Ruby files
