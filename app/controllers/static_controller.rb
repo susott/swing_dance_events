@@ -1,7 +1,5 @@
 class StaticController < ApplicationController
-  def imprint
-  end
+  def imprint; end
 
-  def about
-  end
- end
+  def about; end
+end

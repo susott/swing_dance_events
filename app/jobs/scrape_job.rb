@@ -1,4 +1,3 @@
-
 class ScrapeJob < ActiveJob::Base
   def self.perform
     # get_data # This will hit the page, so don't do that too often
@@ -10,15 +9,13 @@ class ScrapeJob < ActiveJob::Base
     end
   end
 
-  private
-  
   # Visit and safe the html of the details page
   def self.get_data
-    response = HTTParty.get("https://www.swingplanit.com", { 
-      headers: { 
-        "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" 
-      }, 
-    })
+    response = HTTParty.get('https://www.swingplanit.com', {
+                              headers: {
+                                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+                              }
+                            })
 
     document = Nokogiri::HTML(response.body)
     File.write('app/jobs/scrape_result.html', document)
@@ -33,11 +30,7 @@ class ScrapeJob < ActiveJob::Base
     listed_event = document.search('.maintitles')
     links = listed_event.map do |event|
       country = event.search('.pins').text
-      if Event::SUPPORTED_COUNTRIES.include?(country)
-        event.attribute_nodes.first.value
-      else
-        nil
-      end
+      event.attribute_nodes.first.value if Event::SUPPORTED_COUNTRIES.include?(country)
     end.compact
   end
 
@@ -45,11 +38,11 @@ class ScrapeJob < ActiveJob::Base
   def self.visit_links(links)
     # links = ["https://www.swingplanit.com/event/swingcake-tuebingen"]
     links.each do |details_page|
-      response = HTTParty.get(details_page, { 
-        headers: { 
-          "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" 
-        }, 
-      })
+      response = HTTParty.get(details_page, {
+                                headers: {
+                                  'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+                                }
+                              })
       document = Nokogiri::HTML(response.body)
 
       uri = URI(details_page)
@@ -61,7 +54,7 @@ class ScrapeJob < ActiveJob::Base
   def self.extract_data_for_event(event_file)
     document = Nokogiri::HTML(event_file)
 
-    event = Event.new()
+    event = Event.new
     details = document.search('li')
     start_date, end_date = details[0].text.delete_prefix("\nWhen? ").split(' - ')
 
@@ -74,10 +67,10 @@ class ScrapeJob < ActiveJob::Base
     event.dance_types = dance_styles.map { |dance_type| dance_type.parameterize.underscore }
 
     event.title = document.title
-    event.description = document.search(".scroll-pane2").text.delete_prefix("\n\t\t\t\t\t\t\t").delete_suffix("\n\t\t\t\t\t\t")
-    
+    event.description = document.search('.scroll-pane2').text.delete_prefix("\n\t\t\t\t\t\t\t").delete_suffix("\n\t\t\t\t\t\t")
+
     begin event.save!
-      'all good'
+          'all good'
     rescue ActiveRecord::RecordInvalid
       debugger
     end

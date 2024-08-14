@@ -1,20 +1,21 @@
 class Event < ApplicationRecord
-  DANCE_TYPES = %w(lindy_hop balboa solo_jazz collegiate_shag sankt_luis_shag blues west_coast charleston solo_jazz boogie_woogie shag jazz).freeze
+  DANCE_TYPES = %w[lindy_hop balboa solo_jazz collegiate_shag sankt_luis_shag blues west_coast charleston solo_jazz
+                   boogie_woogie shag jazz].freeze
   SUPPORTED_COUNTRIES = ['Germany', 'France', 'Italy', 'Spain', 'Sweden', 'Lithuania', 'Croatia', 'Czech Republic']
 
-  normalizes :website, with: -> website { website.strip.downcase }
+  normalizes :website, with: ->(website) { website.strip.downcase }
 
   validates :title, length: { minimum: 4, maximum: 200 }, presence: true
   validates :start_date, :end_date, :description, presence: true
   validate :start_date_before_end_date
   validate :supported_dance_types
 
-  scope :upcoming, -> { where("end_date > ?", Date.today) }
-  scope :past, -> { where("end_date <= ?", Date.today) }
+  scope :upcoming, -> { where('end_date > ?', Date.today) }
+  scope :past, -> { where('end_date <= ?', Date.today) }
 
-  scope :filter_by_city, -> (city) { where(city: city) }
-  scope :filter_by_country, -> (country) { where(country: country) }
-  scope :filter_by_dance_types, -> (dance) { where('DANCE_TYPES && array[?]', dance)}
+  scope :filter_by_city, ->(city) { where(city:) }
+  scope :filter_by_country, ->(country) { where(country:) }
+  scope :filter_by_dance_types, ->(dance) { where('DANCE_TYPES && array[?]', dance) }
 
   # currently only used for comand line
   def upcoming?
@@ -24,10 +25,10 @@ class Event < ApplicationRecord
   private
 
   def start_date_before_end_date
-    errors.add(:end_date, "Event can not end before it starts.") if start_date.after?(end_date)
+    errors.add(:end_date, 'Event can not end before it starts.') if start_date.after?(end_date)
   end
 
   def supported_dance_types
-    errors.add(:dance_types, "Unsupported dance type") if (dance_types - Event::DANCE_TYPES).present?
+    errors.add(:dance_types, 'Unsupported dance type') if (dance_types - Event::DANCE_TYPES).present?
   end
 end
