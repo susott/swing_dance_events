@@ -1,7 +1,9 @@
 class Event < ApplicationRecord
   DANCE_TYPES = %w[lindy_hop balboa solo_jazz collegiate_shag sankt_luis_shag blues west_coast charleston solo_jazz
                    boogie_woogie shag jazz].freeze
-  SUPPORTED_COUNTRIES = ['Germany', 'France', 'Italy', 'Spain', 'Sweden', 'Lithuania', 'Croatia', 'Czech Republic']
+  SUPPORTED_COUNTRIES = [
+    'Germany', 'France', 'Italy', 'Spain', 'Sweden', 'Lithuania', 'Croatia', 'Czech Republic'
+  ].freeze
 
   normalizes :website, with: ->(website) { website.strip.downcase }
 

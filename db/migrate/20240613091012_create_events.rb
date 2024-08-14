@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/MethodLength
 class CreateEvents < ActiveRecord::Migration[7.1]
   def change
     create_table :events do |t|
@@ -16,3 +17,5 @@ class CreateEvents < ActiveRecord::Migration[7.1]
     end
   end
 end
+
+# rubocop:enable Metrics/MethodLength
