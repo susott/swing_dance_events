@@ -10,23 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_091012) do
+ActiveRecord::Schema[7.1].define(version: 20_240_613_091_012) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "events", force: :cascade do |t|
-    t.datetime "start_date", null: false
-    t.datetime "end_date", null: false
-    t.datetime "sign_up_start_date"
-    t.string "title", null: false
-    t.string "event_email"
-    t.string "website"
-    t.string "description", null: false
-    t.string "country", null: false
-    t.string "city", null: false
-    t.text "dance_types", default: [], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'events', force: :cascade do |t|
+    t.datetime 'start_date', null: false
+    t.datetime 'end_date', null: false
+    t.datetime 'sign_up_start_date'
+    t.string 'title', null: false
+    t.string 'event_email'
+    t.string 'website'
+    t.string 'description', null: false
+    t.string 'country', null: false
+    t.string 'city', null: false
+    t.text 'dance_types', default: [], array: true
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end

@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-
   def new
     @event = Event.new
   end
@@ -29,13 +28,15 @@ class EventsController < ApplicationController
   end
 
   private
-    def event_params
-      params.require(:event).permit(
-        :title, :description, :dance_types, :start_date, :end_date, :website, :sign_up_start_date, :event_email, :country, :city
-      )
-    end
 
-    def filter_params
-      params.slice(:city, :country, :id, :dance_type)
-    end
+  def event_params
+    params.require(:event).permit(
+      :title, :description, :dance_types, :start_date, :end_date, :website, :sign_up_start_date,
+      :event_email, :country, :city
+    )
+  end
+
+  def filter_params
+    params.slice(:city, :country, :id, :dance_type)
+  end
 end
