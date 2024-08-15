@@ -2,13 +2,15 @@
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
-
-AllCops:
-  Exclude:
-    - 'db/seeds.rb'
-    - 'app/jobs/scrape_job.rb'
 
 Metrics/AbcSize:
   Enabled: false
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - 'db/seeds.rb'
+    - 'app/jobs/scrape_job.rb'
