@@ -18,4 +18,4 @@ AllCops:
     - bin/**
     - db/**
     - config/**
-    - vendor/bundle/**
+    - 'vendor/bundle/**/*'
