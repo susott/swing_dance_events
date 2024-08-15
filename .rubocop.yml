@@ -12,6 +12,8 @@ AllCops:
   SuggestExtensions: false
   NewCops: enable
   Exclude:
-    - 'db/seeds.rb'
-    - 'app/jobs/scrape_job.rb'
-    - 'vendor/bundle/**/*'
+    - bin/**
+    - db/**
+    - config/**
+    - vendor/**
+    #- 'app/jobs/scrape_job.rb'
