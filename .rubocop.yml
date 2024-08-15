@@ -1,0 +1,21 @@
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - bin/**
+    - db/**
+    - config/**
+    - 'vendor/bundle/**/*'
