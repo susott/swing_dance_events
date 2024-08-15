@@ -14,3 +14,4 @@ AllCops:
   Exclude:
     - 'db/seeds.rb'
     - 'app/jobs/scrape_job.rb'
+    - 'vendor/bundle/**/*'
