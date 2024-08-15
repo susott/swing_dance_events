@@ -1,6 +1,6 @@
 class ScrapeJob < ActiveJob::Base
   def self.perform
-    # get_data # This will hit the page, so don't do that too often
+    # fetch_data # This will hit the page, so don't do that too often
     # links = collect_links
     # visit_links(links) # This will hit all the subpages, so don't do that too often
 
@@ -10,12 +10,15 @@ class ScrapeJob < ActiveJob::Base
   end
 
   # Visit and safe the html of the details page
-  def self.get_data
-    response = HTTParty.get('https://www.swingplanit.com', {
-                              headers: {
-                                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
-                              }
-                            })
+  def self.fetch_data
+    response = HTTParty.get(
+      'https://www.swingplanit.com', {
+        headers: {
+          'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, ' \
+                          'like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
+      }
+    )
 
     document = Nokogiri::HTML(response.body)
     File.write('app/jobs/scrape_result.html', document)
@@ -28,7 +31,7 @@ class ScrapeJob < ActiveJob::Base
 
     # - Find all div class="pins">Germany</div>
     listed_event = document.search('.maintitles')
-    links = listed_event.map do |event|
+    listed_event.map do |event|
       country = event.search('.pins').text
       event.attribute_nodes.first.value if Event::SUPPORTED_COUNTRIES.include?(country)
     end.compact
@@ -40,7 +43,8 @@ class ScrapeJob < ActiveJob::Base
     links.each do |details_page|
       response = HTTParty.get(details_page, {
                                 headers: {
-                                  'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+                                  'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' \
+                                                  '(KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
                                 }
                               })
       document = Nokogiri::HTML(response.body)
@@ -51,7 +55,7 @@ class ScrapeJob < ActiveJob::Base
   end
 
   # From the saved details page of the event, scrape the data and store it as Event.
-  def self.extract_data_for_event(event_file)
+  def self.extract_data_for_event(event_file) # rubocop:disable Metrics/MethodLength
     document = Nokogiri::HTML(event_file)
 
     event = Event.new
@@ -67,12 +71,15 @@ class ScrapeJob < ActiveJob::Base
     event.dance_types = dance_styles.map { |dance_type| dance_type.parameterize.underscore }
 
     event.title = document.title
-    event.description = document.search('.scroll-pane2').text.delete_prefix("\n\t\t\t\t\t\t\t").delete_suffix("\n\t\t\t\t\t\t")
+    event.description = document.search('.scroll-pane2')
+                                .text
+                                .delete_prefix("\n\t\t\t\t\t\t\t")
+                                .delete_suffix("\n\t\t\t\t\t\t")
 
     begin event.save!
           'all good'
     rescue ActiveRecord::RecordInvalid
-      debugger
+      debugger # rubocop:disable Lint/Debugger
     end
   end
 end
