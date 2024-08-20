@@ -6,7 +6,7 @@ FactoryBot.define do
     title { 'Absolutely Shag' }
     event_email { nil }
     website { 'https://www.example.com' }
-    description { 'example shag weekend in Hamburg' }
+    description { 'example weekend' }
     country { 'Germany' }
     city { 'Hamburg' }
     dance_types { ['shag'] }

@@ -57,6 +57,25 @@ RSpec.describe 'Events', type: :request do
       expect(response.body).to include @events.second.start_date.strftime('%B %d, %Y')
     end
 
-    xit 'filters are working'
+    context 'filters' do
+      let!(:event_shag_hamburg) { create(:event, title: 'foo foo', city: 'Hamburg', dance_types: ['sankt_luis_shag']) }
+      let!(:event_shag_berlin) { create(:event, title: 'bar bar', city: 'Berlin', dance_types: ['sankt_luis_shag']) }
+      let!(:event_lindy_berlin) { create(:event, title: 'baz baz', city: 'Berlin', dance_types: %w[lindy_hop balboa]) }
+
+      it 'filters by city' do
+        get '/events', params: { city: 'Berlin' }
+        expect(response.body).not_to include 'Hamburg'
+        expect(response.body).to include 'bar bar'
+        expect(response.body).to include 'baz baz'
+      end
+
+      it 'filters by dance type' do
+        get '/events', params: { dance_type: 'lindy_hop' }
+
+        expect(response.body).not_to include 'foo foo'
+        expect(response.body).not_to include 'bar bar'
+        expect(response.body).to include 'baz baz'
+      end
+    end
   end
 end
