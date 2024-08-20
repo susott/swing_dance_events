@@ -12,7 +12,7 @@ html
 
         div
           p
-            = link_to @event.website, target: "_blank", rel: "nofollow" 
+            = link_to nil, @event.website, target: "_blank", rel: "nofollow" 
             br
             = "#{@event.start_date.strftime("%B %d, %Y")} to #{@event.end_date.strftime("%B %d, %Y")}"
             br
