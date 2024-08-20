@@ -1,5 +1,5 @@
 table
-  - @events.upcoming.order('start_date').map do |event|
+  - @events.map do |event|
     tr
       td.name = link_to event.title, event_path(event), target: "_blank"
       td.city = event.city

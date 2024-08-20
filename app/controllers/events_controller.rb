@@ -25,6 +25,7 @@ class EventsController < ApplicationController
     @events = @events.filter_by_city(filter_params[:city]) if params[:city].present?
     @events = @events.filter_by_country(filter_params[:country]) if params[:country].present?
     @events = @events.filter_by_dance_types(filter_params[:dance_type]) if params[:dance_type].present?
+    @events.order('start_date')
   end
 
   private
