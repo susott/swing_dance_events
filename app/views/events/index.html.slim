@@ -3,7 +3,7 @@
   div
     = render "filter_section"
   
-  - unless @events.empty?
+  - if @events.present?
     = render "event_list"
     
   - else
