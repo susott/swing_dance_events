@@ -14,9 +14,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(filter_params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render html: helpers.tag.strong('This page does not exist')
+    @event = Event.find(params[:id])
   end
 
   def index
