@@ -1,0 +1,21 @@
+version: '3' 
+services: 
+  db: 
+    image: postgres:13 
+    volumes: 
+    - ./tmp/db:/var/lib/postgresql/data 
+    Environment:
+    - POSTGRES_USER=your_postgres_user 
+    - POSTGRES_PASSWORD=your_postgres_password 
+  web: 
+    build: 
+      context: . 
+      dockerfile: Dockerfile 
+    volumes: 
+    - .:/app 
+    ports: 
+    - '3000:3000' 
+    depends_on: 
+    - db 
+    Environment:
+      -DATABASE_URL=postgresql://your_postgres_user:your_postgres_password@db:5

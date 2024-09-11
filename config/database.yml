@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-  database: swingfestival_production
-  
+  database: kamal_pg_production
+  username: kamal_pg
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
