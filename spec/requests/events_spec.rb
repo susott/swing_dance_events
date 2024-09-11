@@ -57,6 +57,17 @@ RSpec.describe 'Events', type: :request do
       expect(response.body).to include @events.second.start_date.strftime('%B %d, %Y')
     end
 
+    it 'sorts the events by start date' do
+      create(:event, title: 'March', start_date: '01.03.2099'.to_date, end_date: '03.03.2099'.to_date)
+      create(:event, title: 'January', start_date: '01.01.2099'.to_date, end_date: '03.01.2099'.to_date)
+      get '/events'
+
+      document = Nokogiri::HTML(response.body) # TODO: This feels like a hack
+      table = document.search('table')
+      # table.text is e.g. "MarchHamburgMarch 01, 2099JanuaryHamburgJanuary 01, 2099"
+      expect(table.text).to start_with 'January'
+    end
+
     context 'filters' do
       let!(:event_shag_hamburg) { create(:event, title: 'foo foo', city: 'Hamburg', dance_types: ['sankt_luis_shag']) }
       let!(:event_shag_berlin) { create(:event, title: 'bar bar', city: 'Berlin', dance_types: ['sankt_luis_shag']) }
