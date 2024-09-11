@@ -1,0 +1,56 @@
+# Name of your application. Used to uniquely configure containers.
+service: swing_dance_events
+
+# Name of the container image.
+image: 3257n12iyasdfzaszewr/swing_dance_events
+
+# Deploy to these servers.
+servers:
+  web:
+    hosts:
+      - 188.245.126.76
+
+registry:
+  # Specify the registry server, if you're not using Docker Hub
+  username:
+    - KAMAL_REGISTRY_USER
+  # Always use an access token rather than real password when possible.
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Inject ENV variables into containers (secrets come from .env).
+# Remember to run `kamal env push` after making changes!
+env:
+  clear:
+    DB_HOST: 188.245.126.76
+  secret:
+    - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+
+builder:
+  multiarch: false
+  args:
+    RUBY_VERSION: 3.3.2 # might not need this
+    ENVIRONMENT: production
+  # for now, use the locally checked out version including uncommited changes
+  context: .
+  # secrets:
+  #   - GITHUB_TOKEN
+ 
+# Use accessory services (secrets come from .env).
+accessories:
+  db:
+    image: postgres:16
+    host: 188.245.126.76
+    port: 5432
+    env:
+      clear:
+        POSTGRES_USER: "kamal_pg"
+        POSTGRES_DB: "kamal_pg_production"
+      secret:
+        - POSTGRES_PASSWORD
+    # files:
+    #   - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data
+      
