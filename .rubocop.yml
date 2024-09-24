@@ -19,7 +19,9 @@ AllCops:
   SuggestExtensions: false
   NewCops: enable
   Exclude:
-    - bin/**
-    - db/**
-    - config/**
-    - 'vendor/bundle/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'vendor/**/*' # yagni?
+    - 'node_modules/**/*' # yagni?
+    
