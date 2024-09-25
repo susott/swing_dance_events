@@ -1,6 +1,6 @@
 # About
 
-Rails app to show swing dance events filterable by city and country. Still under construction.
+Rails app to show swing dance events (like lindy hop, balboa or solo jazz festivals) filterable by city and country. Still under construction.
 
 <!-- # README
 
