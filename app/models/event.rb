@@ -1,11 +1,12 @@
 class Event < ApplicationRecord
-  DANCE_TYPES = %w[lindy_hop balboa solo_jazz collegiate_shag sankt_luis_shag blues west_coast charleston solo_jazz
-                   boogie_woogie shag jazz].freeze
+  DANCE_TYPES = %w[lindy_hop balboa blues west_coast charleston boogie_woogie shag jazz].freeze
   SUPPORTED_COUNTRIES = [
-    'Germany', 'France', 'Italy', 'Spain', 'Sweden', 'Lithuania', 'Croatia', 'Czech Republic'
+    'Austria', 'Croatia', 'Czech Republic', 'Denmark', 'France', 'Germany', 'Italy', 'Lithuania',
+    'Poland', 'Norway', 'Portugal', 'Spain', 'Sweden'
   ].freeze
 
-  normalizes :website, with: ->(website) { website.strip.downcase }
+  normalizes :website, with: ->(website) { website.squish.downcase }
+  normalizes :city, :title, :country, with: lambda(&:squish)
 
   validates :title, length: { minimum: 4, maximum: 200 }, presence: true
   validates :start_date, :end_date, :description, presence: true
