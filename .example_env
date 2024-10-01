@@ -1,0 +1,9 @@
+# to run the app, an .env file needs to be created with the following variables
+DATABASE_URL="example"
+KAMAL_REGISTRY_USER="example"
+KAMAL_REGISTRY_PASSWORD="example"
+RAILS_MASTER_KEY="example"
+
+POSTGRES_PASSWORD="example"
+DB_HOST="example"
+ACME_EMAIL="example"

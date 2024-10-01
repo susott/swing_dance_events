@@ -72,7 +72,7 @@ traefik:
     entryPoints.web.http.redirections.entryPoint.to: websecure # force https
     entryPoints.web.http.redirections.entryPoint.scheme: https
     entryPoints.web.http.redirections.entrypoint.permanent: true
-    certificatesResolvers.letsencrypt.acme.email: ACME_EMAIL # hope this works
+    certificatesResolvers.letsencrypt.acme.email: ACME_EMAIL
     certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
     certificatesResolvers.letsencrypt.acme.httpchallenge: true
     certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web # see role in `servers`

@@ -2,27 +2,16 @@
 
 Rails app to show swing dance events (like lindy hop, balboa or solo jazz festivals) filterable by city and country. Still under construction.
 
-<!-- # README
+# Development setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is a typical rails app written in ruby 3.3 and rails 7.2. PostgreSQL is used as database. This Rails Guide might be helpful to get a version running locally: [https://guides.rubyonrails.org/development_dependencies_install.html]. The app is not yet configured to work with Dev Containers.
 
-Things you may want to cover:
+After a successfull setup you can run `rails db:seed` to get a list of example events into your database. Note that only upcoming events will show on the events list, hence it might be necessary to update some dates to actually see events in the browser.
 
-* Ruby version
+# Test
 
-* System dependencies
+Tests are written in rspec. Run `rspec` to run the tests.
 
-* Configuration
+# Deploy
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ... -->
+This app can be deployed with the [kamal](https://kamal-deploy.org/) tool. For this to work, you need to install the kamal gem (locally). The configuration can be found - and adapted - in the config/deploy.yml file. An .env file is needed to store the environment varialbes. To get started, you can rename .example_env to .env and fill in the respective values.
