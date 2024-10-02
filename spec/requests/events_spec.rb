@@ -69,8 +69,8 @@ RSpec.describe 'Events', type: :request do
     end
 
     context 'filters' do
-      let!(:event_shag_hamburg) { create(:event, title: 'foo foo', city: 'Hamburg', dance_types: ['sankt_luis_shag']) }
-      let!(:event_shag_berlin) { create(:event, title: 'bar bar', city: 'Berlin', dance_types: ['sankt_luis_shag']) }
+      let!(:event_shag_hamburg) { create(:event, title: 'foo foo', city: 'Hamburg', dance_types: ['shag']) }
+      let!(:event_shag_berlin) { create(:event, title: 'bar bar', city: 'Berlin', dance_types: ['shag']) }
       let!(:event_lindy_berlin) { create(:event, title: 'baz baz', city: 'Berlin', dance_types: %w[lindy_hop balboa]) }
 
       it 'filters by city' do
