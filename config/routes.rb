@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   get 'imprint', to: 'static#imprint'
   get 'about', to: 'static#about'
+
+  post 'contact', to: 'static#contact'
 end

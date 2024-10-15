@@ -1,0 +1,16 @@
+= form_with url: "/contact", method: :post do |form|
+  fieldset class="grid"
+    div
+      = form.label :name, "Your name"
+      = form.text_field :name, placeholder: 'Name'
+    div
+      = form.label :body, "Your message"
+      = form.text_field :body, placeholder: 'your message'
+    div
+      = form.label :email, "Your email"
+      = form.text_field :email, placeholder: 'email@example.com'
+    div
+      = form.label :do_not_use, "Do not use"
+      = form.text_field :do_not_use
+  = form.submit "Submit Message"
+  
