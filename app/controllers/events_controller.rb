@@ -18,11 +18,11 @@ class EventsController < ApplicationController
   end
 
   def index
-    # see https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
-    @events = Event.upcoming.where(nil).order(:start_date) # creates an anonymous scope
-    @events = @events.filter_by_city(filter_params[:city]) if params[:city].present?
-    @events = @events.filter_by_country(filter_params[:country]) if params[:country].present?
-    @events = @events.filter_by_dance_types(filter_params[:dance_type]) if params[:dance_type].present?
+    @events = Events::Index.run!(
+      city: params[:city],
+      country: params[:country],
+      dance_type: params[:dance_type]
+    )
   end
 
   private

@@ -69,23 +69,32 @@ RSpec.describe 'Events', type: :request do
     end
 
     context 'filters' do
-      let!(:event_shag_hamburg) { create(:event, title: 'foo foo', city: 'Hamburg', dance_types: ['shag']) }
-      let!(:event_shag_berlin) { create(:event, title: 'bar bar', city: 'Berlin', dance_types: ['shag']) }
-      let!(:event_lindy_berlin) { create(:event, title: 'baz baz', city: 'Berlin', dance_types: %w[lindy_hop balboa]) }
+      let!(:event1) { create(:event, title: 'shag_in_hamburg', city: 'Hamburg', dance_types: ['shag']) }
+      let!(:event2) { create(:event, title: 'shag_in_berlin', city: 'Berlin', dance_types: ['shag']) }
+      let!(:event3) { create(:event, title: 'lindy_bal_in_berlin', city: 'Berlin', dance_types: %w[lindy_hop balboa]) }
 
       it 'filters by city' do
         get '/events', params: { city: 'Berlin' }
         expect(response.body).not_to include 'Hamburg'
-        expect(response.body).to include 'bar bar'
-        expect(response.body).to include 'baz baz'
+        expect(response.body).to include 'shag_in_berlin'
+        expect(response.body).to include 'lindy_bal_in_berlin'
       end
 
       it 'filters by dance type' do
         get '/events', params: { dance_type: 'lindy_hop' }
 
-        expect(response.body).not_to include 'foo foo'
-        expect(response.body).not_to include 'bar bar'
-        expect(response.body).to include 'baz baz'
+        expect(response.body).not_to include 'shag_in_hamburg'
+        expect(response.body).not_to include 'shag_in_berlin'
+        expect(response.body).to include 'lindy_bal_in_berlin'
+      end
+
+      it 'filters by city and dance type' do
+        create(:event, dance_types: %w[lindy_hop shag], city: 'Hamburg', title: 'lindy_in_hamburg')
+        get '/events', params: { dance_type: 'lindy_hop', city: 'Berlin' }
+
+        expect(response.body).to include 'lindy_bal_in_berlin'
+        expect(response.body).not_to include 'shag_in_berlin'
+        expect(response.body).not_to include 'lindy_in_hamburg'
       end
     end
   end

@@ -45,6 +45,7 @@ gem 'bootsnap', require: false
 # gem 'image_processing', '~> 1.2'
 
 # custom stuff
+gem 'active_interaction', '~> 5.3' # Supports Command Pattern
 gem 'httparty'
 gem 'nokogiri'
 gem 'slim'
