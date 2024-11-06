@@ -1,14 +1,13 @@
-= form_with url: "/message", method: :post do |form|
+= form_with model: @message, method: :post do |form|
   fieldset class="grid"
     div
       = form.label :name, "Your name"
       = form.text_field :name
     div
-      = form.label :body, "Your message"
-      = form.text_field :body
-    div
       = form.label :email, "Your email"
       = form.text_field :email
-      // = form.label :do_not_use, "Do not use"
       = form.hidden_field :do_not_use
+  div
+    = form.label :body, "Your message"
+    = form.text_field :body
   = form.submit "Submit Message"

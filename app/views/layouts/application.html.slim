@@ -15,6 +15,11 @@ html lang="en"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
 
   body
+    - flash.each do |type, message|
+      .flash
+        article
+          = message
+
     = render "header"
 
     main class='container'

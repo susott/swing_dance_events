@@ -25,3 +25,5 @@ AllCops:
     - 'vendor/**/*' # yagni?
     - 'node_modules/**/*' # yagni?
     
+Style/SymbolProc:
+  Enabled: false
