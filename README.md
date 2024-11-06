@@ -18,8 +18,6 @@ This app can be deployed with the [kamal](https://kamal-deploy.org/) tool. For t
 
 # TODO / Plans
 
-* Use command pattern in events controller
-* Add a simple contact form
 * Add option to suggest new events
 * Add option to suggest edits of existing events
 * Make the page look nice
