@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe '/messages', type: :request do
-  let(:valid_attributes) { { name: 'Micky Mouse', body: 'some text', email: 'micky@example.com' } }
+  let(:valid_attributes) do
+    { name: 'Micky Mouse',
+      body: 'This is some text message with over 30 characters.',
+      email: 'micky@example.com' }
+  end
   let(:invalid_attributes) { { name: '', email: 'micky@example.com' } }
 
   describe 'GET /new' do

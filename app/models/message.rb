@@ -1,6 +1,9 @@
 class Message < ApplicationRecord
-  validates :name, :body, :email, presence: true
-
   normalizes :name, with: ->(name) { name.squish }
-  normalizes :email, with: ->(email) { email.squish.downcase }
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
+  # warning: email validation is never perfect, but imho 'good enough' here
+  validates :email, length: { in: 8..50 }, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :body, length: { in: 30..1000 }
+  validates :name, length: { in: 3..50 }
 end
