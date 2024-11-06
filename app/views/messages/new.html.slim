@@ -1,0 +1,10 @@
+content_for :title, "New message"
+
+h1
+  Contact
+  
+= render "form", message: @message
+
+div
+  = link_to 'Back to event list', root_path
+
