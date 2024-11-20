@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   root 'events#index'
 
   resources :events, only: %i[index show new create]
+  resources :messages, onle: %i[new, create]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  get 'imprint', to: 'static#imprint'
   get 'about', to: 'static#about'
 end

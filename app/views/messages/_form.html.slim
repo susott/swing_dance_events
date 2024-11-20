@@ -1,0 +1,19 @@
+- if @message.errors.any?
+  div
+    - @message.errors.full_messages.each do |error_message|
+      p style="color: red;"
+        = error_message
+
+= form_with model: @message, method: :post do |form|
+  fieldset class="grid"
+    div
+      = form.label :name, "Your name"
+      = form.text_field :name
+    div
+      = form.label :email, "Your email"
+      = form.text_field :email
+      = form.hidden_field :do_not_use
+  div
+    = form.label :body, "Your message"
+    = form.text_field :body
+  = form.submit "Submit Message"
