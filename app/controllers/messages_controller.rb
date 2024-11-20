@@ -11,13 +11,13 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to events_path, notice: 'Success! Message sent.'
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:name, :body, :email)
+    params.require(:message).except(:do_not_use).permit(:name, :body, :email)
   end
 end
