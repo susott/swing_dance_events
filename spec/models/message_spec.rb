@@ -13,8 +13,8 @@ RSpec.describe Message, type: :model do
     expect(message).to be_invalid
   end
 
-  it 'messages body needs to have a min of 30 characters' do
-    message = build(:message, body: 'This is too short')
+  it 'messages body needs to have a min of 15 characters' do
+    message = build(:message, body: 'too short')
 
     expect(message).to be_invalid
   end

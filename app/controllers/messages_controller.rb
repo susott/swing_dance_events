@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to events_path, notice: 'Success! Message sent.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
