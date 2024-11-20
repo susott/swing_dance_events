@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe '/messages', type: :request do
   let(:valid_attributes) do
     { name: 'Micky Mouse',
-      body: 'This is some text message with over 30 characters.',
+      body: 'This is some text message with over 15 characters.',
       email: 'micky@example.com' }
   end
   let(:invalid_attributes) { { name: '', email: 'micky@example.com' } }
