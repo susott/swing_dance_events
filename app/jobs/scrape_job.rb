@@ -31,7 +31,7 @@ class ScrapeJob < ActiveJob::Base
       subpage_url = event.attribute_nodes.first.value if Event::SUPPORTED_COUNTRIES.include?(country)
       title = event.attribute_nodes[3].value.gsub(' - Teachers Confirmed', '')
 
-      next if Event.find_by(title: title)
+      next if Event.upcoming.find_by(title: title)
 
       subpage_url
     end.compact
