@@ -76,7 +76,7 @@ class ScrapeJob < ActiveJob::Base
     begin event.save!
           'all good'
     rescue ActiveRecord::RecordInvalid
-      debugger unless Rails.env.production?
+      debugger unless Rails.env.production? # rubocop:disable Lint/Debugger
     end
   end
 end
