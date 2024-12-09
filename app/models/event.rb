@@ -20,7 +20,6 @@ class Event < ApplicationRecord
   scope :filter_by_country, ->(country) { where(country:) }
   scope :filter_by_dance_types, ->(dance) { where('DANCE_TYPES && array[?]', dance) }
 
-  # currently only used for comand line
   def upcoming?
     end_date > Date.today
   end

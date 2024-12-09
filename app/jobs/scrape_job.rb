@@ -22,13 +22,18 @@ class ScrapeJob < ActiveJob::Base
     Nokogiri::HTML(response.body)
   end
 
-  # From the safed index page, look for all festivals in supported countries and save the link to the details page
+  # From the saved index page, look for all festivals in supported countries and save the link to the details page
   def self.collect_links(main_page_nokogiri_doc)
     # - Find all div class="pins">Germany</div>
     listed_event = main_page_nokogiri_doc.search('.maintitles')
     listed_event.map do |event|
       country = event.search('.pins').text
-      event.attribute_nodes.first.value if Event::SUPPORTED_COUNTRIES.include?(country)
+      subpage_url = event.attribute_nodes.first.value if Event::SUPPORTED_COUNTRIES.include?(country)
+      title = event.attribute_nodes[3].value.gsub(' - Teachers Confirmed', '')
+
+      next if Event.upcoming.find_by(title: title)
+
+      subpage_url
     end.compact
   end
 
@@ -71,7 +76,7 @@ class ScrapeJob < ActiveJob::Base
     begin event.save!
           'all good'
     rescue ActiveRecord::RecordInvalid
-      debugger # rubocop:disable Lint/Debugger
+      debugger unless Rails.env.production? # rubocop:disable Lint/Debugger
     end
   end
 end
