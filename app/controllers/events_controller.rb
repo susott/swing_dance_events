@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.published.find(params[:id])
   end
 
   def index
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(
       :title, :description, :dance_types, :start_date, :end_date, :website, :sign_up_start_date,
-      :event_email, :country, :city
+      :event_email, :country, :city, :parent_event_id
     )
   end
 

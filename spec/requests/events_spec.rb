@@ -23,6 +23,14 @@ RSpec.describe 'Events', type: :request do
         expect(response.body).to include event.start_date.strftime('%B %d, %Y')
         expect(response.body).to include event.end_date.strftime('%B %d, %Y')
       end
+
+      it 'does not show an unpublished event' do
+        event = create(:event, published: false, title: 'not published')
+        get "/events/#{event.id}"
+
+        expect(response).to have_http_status(:not_found)
+        # expect(response.body).not_to include 'not published'
+      end
     end
   end
 
@@ -66,6 +74,14 @@ RSpec.describe 'Events', type: :request do
       table = document.search('table')
       # table.text is e.g. "MarchHamburgMarch 01, 2099JanuaryHamburgJanuary 01, 2099"
       expect(table.text).to start_with 'January'
+    end
+
+    it 'does not show unpublished events' do
+      create(:event)
+      create(:event, published: false, title: 'suggested event')
+      get '/events'
+
+      expect(response.body).not_to include 'suggested event'
     end
 
     context 'filters' do

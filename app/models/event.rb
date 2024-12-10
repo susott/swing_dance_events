@@ -15,6 +15,7 @@ class Event < ApplicationRecord
 
   scope :upcoming, -> { where('end_date > ?', Date.today) }
   scope :past, -> { where('end_date <= ?', Date.today) }
+  scope :published, -> { where(published: true) }
 
   scope :filter_by_city, ->(city) { where(city:) }
   scope :filter_by_country, ->(country) { where(country:) }
