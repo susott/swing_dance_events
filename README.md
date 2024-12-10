@@ -22,5 +22,5 @@ This app can be deployed with the [kamal](https://kamal-deploy.org/) tool. For t
 * Add option to suggest edits of existing events
 * Make the page look nice
 * Possibly add capybara specs
-* Add hotwire / stimulus where it makes sense
-* Fetch only new events
+* Add turbo / stimulus where it makes sense
+* Upgrade to rails 8

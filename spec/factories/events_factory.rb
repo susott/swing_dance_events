@@ -10,6 +10,7 @@ FactoryBot.define do
     country { 'Germany' }
     city { 'Hamburg' }
     dance_types { ['shag'] }
+    published { true }
 
     trait(:past) do
       start_date { 1.month.ago }
