@@ -10,6 +10,10 @@ class Event < ApplicationRecord
 
   validates :title, length: { minimum: 4, maximum: 200 }, presence: true
   validates :start_date, :end_date, :description, presence: true
+  validates :country, inclusion: { in: SUPPORTED_COUNTRIES }
+  validates :city, presence: true
+  validates :website, presence: true
+
   validate :start_date_before_end_date
   validate :supported_dance_types
 
