@@ -18,7 +18,6 @@ This app can be deployed with the [kamal](https://kamal-deploy.org/) tool. For t
 
 # TODO / Plans
 
-* Add option to suggest new events
 * Add option to suggest edits of existing events
 * Make the page look nice
 * Add turbo / stimulus where it makes sense
