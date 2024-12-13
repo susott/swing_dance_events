@@ -63,4 +63,35 @@ RSpec.describe 'Events', type: :system do
       expect(page).to have_content(event.end_date.strftime('%B %d, %Y'))
     end
   end
+
+  describe 'new page' do
+    it 'can create a new event' do
+      visit new_event_path
+
+      expect(page).to have_content('Suggest a New Event')
+      expect(page).to have_content('Name of the event')
+
+      fill_in('Name of the event', with: 'Some Lindy festival')
+
+      check('event_dance_types_lindy_hop')
+      check('event_dance_types_balboa')
+
+      select 'Germany', from: 'Country'
+      fill_in('City', with: 'Berlin')
+
+      select('13', from: 'event_start_date_3i')
+      select('June', from: 'event_start_date_2i')
+      select(Date.today.year + 1, from: 'event_start_date_1i')
+
+      select('15', from: 'event_end_date_3i')
+      select('June', from: 'event_end_date_2i')
+      select(Date.today.year + 1, from: 'event_end_date_1i')
+
+      fill_in('Description', with: 'The world famous test event is back')
+      fill_in('Website', with: 'example.com')
+
+      click_button('Submit Event')
+      expect(Event.last.title).to eq 'Some Lindy festival'
+    end
+  end
 end

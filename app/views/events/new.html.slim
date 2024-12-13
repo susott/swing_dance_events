@@ -7,10 +7,16 @@ h1 Suggest a New Event
     / = @event.errors.full_messages_for(:title).each do |message|
     /   div
     /     message
+  div
+    fieldset
+      = f.label :dance_types
+      - Event::DANCE_TYPES.each do |dance|
+        = f.check_box :dance_types, { multiple: true }, dance, nil
+        = label :dance_types, dance, value: dance
   fieldset class="grid"
     div
       = f.label :country
-      = f.text_field :country
+      = f.select :country, Event::SUPPORTED_COUNTRIES
     div
       = f.label :city
       = f.text_field :city
@@ -22,18 +28,20 @@ h1 Suggest a New Event
     div
       = f.label :end_date
       fieldset class="grid"
-        = f.date_select :start_date, start_year: Date.current.year, order: [:day, :month, :year]
+        = f.date_select :end_date, start_year: Date.current.year, order: [:day, :month, :year]
   div
     = f.label :description
     = f.text_area :description
   dev
     = f.label :website
     = f.text_field :website
+  
   div
     = f.submit "Submit Event"
 
-
-// add dance types select option
-// make the country a select option, too
 // make the start date to end date UX usable
 // make sure errors are shown
+// add a hidden field (for spam)
+// show button to this form in the index view
+// write capybara spec
+// check that the controller can deal with the new input
