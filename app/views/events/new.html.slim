@@ -12,7 +12,8 @@ h1 Suggest a New Event
     div
       = f.label :country
       = f.select :country, Event::SUPPORTED_COUNTRIES
-    = render "form_field_with_errors", form: f, field: :city, label: 'City'
+    div
+      = render "form_field_with_errors", form: f, field: :city, label: 'City'
   fieldset class='grid'
     div
       = f.label :start_date
@@ -23,7 +24,7 @@ h1 Suggest a New Event
       fieldset class='grid'
         = f.date_select :end_date, start_year: Date.current.year, order: [:day, :month, :year]
   = render "form_field_with_errors", form: f, field: :description, label: 'Description', field_type: :text_area
-  = render "form_field_with_errors", form: f, field: :city, label: 'City'
+  = render "form_field_with_errors", form: f, field: :website, label: 'Website'
   div
     = f.submit 'Submit Event'
 
