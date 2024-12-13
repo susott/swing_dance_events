@@ -7,7 +7,11 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      redirect_to @event
+      # TODO: Show a success message
+
+      # the created message itself is not published yet, hence I can not simply use a show action.
+      # but I might want to create something that feels similar(?)
+      redirect_to action: 'index'
     else
       render :new, status: :unprocessable_entity
     end
