@@ -1,43 +1,31 @@
 h1 Suggest a New Event
 
 = form_with model: @event do |f|
-  div
-    = f.label :title, "Name of the event"
-    = f.text_field :title
-    / = @event.errors.full_messages_for(:title).each do |message|
-    /   div
-    /     message
+  = render "form_field_with_errors", form: f, field: :title, label: 'Name of the event'
   div
     fieldset
       = f.label :dance_types
       - Event::DANCE_TYPES.each do |dance|
         = f.check_box :dance_types, { multiple: true }, dance, nil
         = label :dance_types, dance, value: dance
-  fieldset class="grid"
+  fieldset class='grid'
     div
       = f.label :country
       = f.select :country, Event::SUPPORTED_COUNTRIES
-    div
-      = f.label :city
-      = f.text_field :city
-  fieldset class="grid"
+    = render "form_field_with_errors", form: f, field: :city, label: 'City'
+  fieldset class='grid'
     div
       = f.label :start_date
-      fieldset class="grid"
+      fieldset class='grid'
         = f.date_select :start_date, start_year: Date.current.year, order: [:day, :month, :year]
     div
       = f.label :end_date
-      fieldset class="grid"
+      fieldset class='grid'
         = f.date_select :end_date, start_year: Date.current.year, order: [:day, :month, :year]
+  = render "form_field_with_errors", form: f, field: :description, label: 'Description', field_type: :text_area
+  = render "form_field_with_errors", form: f, field: :city, label: 'City'
   div
-    = f.label :description
-    = f.text_area :description
-  dev
-    = f.label :website
-    = f.text_field :website
-  
-  div
-    = f.submit "Submit Event"
+    = f.submit 'Submit Event'
 
 // make the start date to end date UX usable
 // make sure errors are shown

@@ -32,7 +32,7 @@ class Event < ApplicationRecord
   private
 
   def start_date_before_end_date
-    errors.add(:end_date, 'Event can not end before it starts.') if start_date.after?(end_date)
+    errors.add(:end_date, 'Event can not end before it starts.') if start_date&.after?(end_date)
   end
 
   def supported_dance_types

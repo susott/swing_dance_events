@@ -1,0 +1,10 @@
+/ # locals: (form:, field:, label:, field_type: :text_field)
+
+= form.label field, label
+  - if @event.errors[field].any?
+    small
+      - @event.errors.messages_for(field).each do |message|
+        div class="error_message"
+          = message
+= form.send(field_type, field)
+  
