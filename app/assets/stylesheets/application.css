@@ -31,3 +31,7 @@ body > footer {
 .error_message {
   color: red; font-size: 0.9em; margin-top: 5px;
 }
+
+.form-container {
+  display: inline-block;
+}

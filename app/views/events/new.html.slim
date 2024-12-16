@@ -1,35 +1,28 @@
-h1 Suggest a New Event
+container class='form-container'
+  h2 Suggest a New Event
 
-= form_with model: @event do |f|
-  = render "form_field_with_errors", form: f, field: :title, label: 'Name of the event'
-  div
-    fieldset
-      = f.label :dance_types
-      - Event::DANCE_TYPES.each do |dance|
-        = f.check_box :dance_types, { multiple: true }, dance, nil
-        = label :dance_types, dance, value: dance
-  fieldset class='grid'
+  = form_with model: @event do |f|
+    = render "form/text_field_with_errors", form: f, field: :title, label: 'Name of the event'
     div
-      = f.label :country
-      = f.select :country, Event::SUPPORTED_COUNTRIES
+      fieldset
+        = f.label :dance_types
+        - Event::DANCE_TYPES.each do |dance|
+          = f.check_box :dance_types, { multiple: true }, dance, nil
+          = label :dance_types, dance, value: dance
+    fieldset class='grid'
+      div
+        = render "form/select_field_with_errors",
+          form: f, field: :country, label: 'Country', selection: Event::SUPPORTED_COUNTRIES
+      div
+        = render "form/text_field_with_errors", form: f, field: :city, label: 'City'
+    fieldset class='grid'
+      = render "form/date_select_field_with_errors", form: f, field: :start_date
+      = render "form/date_select_field_with_errors", form: f, field: :end_date
+    = render "form/text_field_with_errors", form: f, field: :description, label: 'Description', field_type: :text_area
+    = render "form/text_field_with_errors", form: f, field: :website, label: 'Website'
     div
-      = render "form_field_with_errors", form: f, field: :city, label: 'City'
-  fieldset class='grid'
-    div
-      = f.label :start_date
-      fieldset class='grid'
-        = f.date_select :start_date, start_year: Date.current.year, order: [:day, :month, :year]
-    div
-      = f.label :end_date
-      fieldset class='grid'
-        = f.date_select :end_date, start_year: Date.current.year, order: [:day, :month, :year]
-  = render "form_field_with_errors", form: f, field: :description, label: 'Description', field_type: :text_area
-  = render "form_field_with_errors", form: f, field: :website, label: 'Website'
-  div
-    = f.submit 'Submit Event'
+      = f.submit 'Submit Event'
 
-// make sure all errors are shown
-// add a hidden field (for spam)
-// show button to this form in the index view
-// write capybara spec for a validation error case
-// show a success/thank you message if an event is created
+  // fix error message for date field
+  // add a hidden field (for spam)
+  // write capybara spec for a validation error case
