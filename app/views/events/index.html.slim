@@ -1,11 +1,13 @@
-  / button
-  /   = link_to "Submit New Event", new_event_path
-  div
-    = render "filter_section"
+div
+  = render "filter_section"
+
+- if @events.present?
+  = render "event_list"
   
-  - if @events.present?
-    = render "event_list"
-    
-  - else
-    | No events found. Please add some.
-      Thank you!
+- else
+  | No events found. Please add some.
+    Thank you!
+
+div
+  button class='outline contrast'
+    = link_to "Submit New Event", new_event_path
