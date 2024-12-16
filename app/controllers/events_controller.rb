@@ -6,12 +6,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      # TODO: Show a success message
-
-      # the created message itself is not published yet, hence I can not simply use a show action.
-      # but I might want to create something that feels similar(?)
-      redirect_to action: 'index'
+      redirect_to events_path, notice: 'Success! Your event will be reviewed and published.'
     else
+      flash[:alert] = 'Event could not be saved. Please double-check your input.'
       render :new, status: :unprocessable_entity
     end
   end
