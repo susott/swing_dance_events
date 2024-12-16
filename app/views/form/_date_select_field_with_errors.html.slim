@@ -1,0 +1,11 @@
+/ # locals: (form:, field:)
+
+div
+  = form.label field
+  - if @event.errors[field].any?
+    small
+      - @event.errors.messages_for(field).each do |message|
+        .error_message
+          = message
+  fieldset class='grid'
+    = form.date_select field, start_year: Date.current.year, order: [:day, :month, :year]
