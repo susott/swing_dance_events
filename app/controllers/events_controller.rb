@@ -33,8 +33,4 @@ class EventsController < ApplicationController
       :event_email, :country, :city, :parent_event_id
     )
   end
-
-  def filter_params
-    params.slice(:city, :country, :id, :dance_type)
-  end
 end
