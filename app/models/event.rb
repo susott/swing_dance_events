@@ -1,8 +1,11 @@
 class Event < ApplicationRecord
   DANCE_TYPES = %w[lindy_hop balboa blues west_coast charleston boogie_woogie shag jazz].freeze
   SUPPORTED_COUNTRIES = [
-    'Austria', 'Croatia', 'Czech Republic', 'Denmark', 'France', 'Germany', 'Italy', 'Lithuania',
-    'Poland', 'Norway', 'Portugal', 'Spain', 'Sweden'
+    'Albania', 'Andorra', 'Austria', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria', 'Croatia',
+    'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary',
+    'Iceland', 'Ireland', 'Italy', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta',
+    'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania',
+    'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom'
   ].freeze
 
   normalizes :website, with: ->(website) { website.squish.downcase }
