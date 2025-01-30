@@ -46,7 +46,6 @@ gem 'bootsnap', require: false
 
 # custom stuff
 gem 'active_interaction', '~> 5.3' # Supports Command Pattern
-gem 'httparty'
 gem 'nokogiri'
 gem 'slim'
 

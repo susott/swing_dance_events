@@ -1,3 +1,5 @@
+require 'net/http'
+
 class ScrapeJob < ActiveJob::Base
   def self.perform
     main_page_nokogiri_doc = fetch_data
@@ -11,14 +13,8 @@ class ScrapeJob < ActiveJob::Base
 
   # Visit and get the html of the main page
   def self.fetch_data
-    response = HTTParty.get(
-      'https://www.swingplanit.com', {
-        headers: {
-          'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, ' \
-                          'like Gecko) Chrome/109.0.0.0 Safari/537.36'
-        }
-      }
-    )
+    uri = URI.parse('https://www.swingplanit.com')
+    response = Net::HTTP.get_response(uri)
     Nokogiri::HTML(response.body)
   end
 
@@ -41,13 +37,9 @@ class ScrapeJob < ActiveJob::Base
   def self.visit_links(links)
     # links = ["https://www.swingplanit.com/event/swingcake-tuebingen"]
     event_files = []
-    links.each do |details_page|
-      response = HTTParty.get(details_page, {
-                                headers: {
-                                  'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' \
-                                                  '(KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
-                                }
-                              })
+    links.each do |details_link|
+      details_uri = URI.parse(details_link)
+      response = Net::HTTP.get_response(details_uri)
       event_files << Nokogiri::HTML(response.body)
     end
     event_files
