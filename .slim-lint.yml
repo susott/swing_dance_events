@@ -1,3 +1,5 @@
+# https://github.com/sds/slim-lint/blob/main/lib/slim_lint/linter/README.md
+
 linters:
   LineLength:
     max: 120
