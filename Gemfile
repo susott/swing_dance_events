@@ -56,6 +56,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'slim_lint'
 end
 
 group :development do

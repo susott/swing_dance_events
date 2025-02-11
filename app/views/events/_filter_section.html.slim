@@ -1,14 +1,13 @@
-= form_with url: "/events", method: :get do |form|
-  fieldset class="grid"
+= form_with url: '/events', method: :get do |form|
+  fieldset class='grid'
     div
-      = form.label :city, "Filter by City"
+      = form.label :city, 'Filter by City'
       = form.text_field :city, placeholder: 'City'
     div
-      = form.label :country, "Filter by Country"
+      = form.label :country, 'Filter by Country'
       = form.text_field :country, placeholder: 'Country'
     div
       - dance_types = Event::DANCE_TYPES.map { |dance| [dance.humanize, dance] }
-      = form.label :dance_type, "Filter by Dance"
-      = form.select :dance_type, dance_types, {include_blank: true}
-  = form.submit "Filter"
-  
+      = form.label :dance_type, 'Filter by Dance'
+      = form.select :dance_type, dance_types, { include_blank: true }
+  = form.submit 'Filter'

@@ -18,8 +18,8 @@ jobs:
         image: postgres:16-alpine
         ports:
           - "5432:5432"
-        # let's see if those options are needed  
-        # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
+        # let's see if those options are needed
+        # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
           POSTGRES_DB: swingfestival_test
           POSTGRES_USER: postgres
@@ -52,12 +52,14 @@ jobs:
         with:
           bundler-cache: true
       - name: Generate binstubs
-        run: bundle binstubs --force brakeman rubocop
+        run: bundle binstubs --force brakeman rubocop slim_lint
         # run: bundle binstubs bundler-audit brakeman rubocop
       # Add or replace any other lints here
       # - name: Security audit dependencies
       #   run: bin/bundler-audit --update
       - name: Security audit application code
         run: bin/brakeman -q -w2
-      - name: Lint Ruby files
+      - name: Lint Ruby files with Rubocop
         run: bin/rubocop --parallel
+      - name: Lint slim files with slim-lint
+        run: bin/slim-lint app/views
