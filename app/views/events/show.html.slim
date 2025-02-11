@@ -3,7 +3,7 @@ html
   head
     title Event
   body
-    
+
     #content
 
       - if @event.present?
@@ -12,12 +12,12 @@ html
 
         div
           p
-            = link_to nil, @event.website, target: "_blank", rel: "nofollow" 
+            = link_to nil, @event.website, target: '_blank', rel: 'nofollow'
             br
-            = "#{@event.start_date.strftime("%B %d, %Y")} to #{@event.end_date.strftime("%B %d, %Y")}"
+            = "#{@event.start_date.strftime('%B %d, %Y')} to #{@event.end_date.strftime('%B %d, %Y')}"
             br
             = @event.dance_types.join(', ').humanize
-            
+
           = @event.description
           / description, country, city, dance_types, sign_up_start_date
       - else

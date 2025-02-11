@@ -6,4 +6,4 @@
     - @event.errors.messages_for(field).each do |message|
       .error_message
         = message
-= form.select(field, Event::SUPPORTED_COUNTRIES, {include_blank: true})
+= form.select(field, Event::SUPPORTED_COUNTRIES, { include_blank: true })

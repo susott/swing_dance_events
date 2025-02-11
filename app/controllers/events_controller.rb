@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to events_path, notice: 'Success! Your event will be reviewed and published.'
+      redirect_to events_path, notice: 'Success! Your event will be reviewed soon.'
     else
       flash[:alert] = 'Event could not be saved. Please double-check your input.'
       render :new, status: :unprocessable_entity

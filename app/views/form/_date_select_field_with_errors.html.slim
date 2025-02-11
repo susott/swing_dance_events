@@ -8,4 +8,4 @@ div
         .error_message
           = message
   fieldset class='grid'
-    = form.date_select field, start_year: Date.current.year, order: [:day, :month, :year]
+    = form.date_select field, start_year: Date.current.year, order: %i[day month year]

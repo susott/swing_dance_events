@@ -5,6 +5,9 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
+Style/HashEachMethods:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -24,6 +27,6 @@ AllCops:
     - 'config/**/*'
     - 'vendor/**/*' # yagni?
     - 'node_modules/**/*' # yagni?
-    
+
 Style/SymbolProc:
   Enabled: false
