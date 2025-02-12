@@ -1,0 +1,69 @@
+# Name of your application. Used to uniquely configure containers.
+service: swing_dance_events
+
+image: 3257n12iyasdfzaszewr/swing_dance_events
+
+servers:
+  web:
+    hosts:
+      - 188.245.126.76
+    labels:
+      traefik.http.routers.events.entrypoints: websecure
+      traefik.http.routers.events.rule: Host(`swing-dance-events.eu`)
+      traefik.http.routers.events.tls.certresolver: letsencrypt
+
+registry:
+  username:
+    - KAMAL_REGISTRY_USER
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Inject ENV variables into containers (secrets come from .env).
+# Remember to run `kamal env push` after making changes!
+env:
+  clear:
+    DB_HOST: 188.245.126.76
+  secret:
+    - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+
+builder:
+  multiarch: false
+  args:
+    RUBY_VERSION: 3.3.2 # might not need this
+    ENVIRONMENT: production
+  # for now, use the locally checked out version including uncommited changes
+  context: .
+
+accessories:
+  db:
+    image: postgres:16
+    host: 188.245.126.76
+    port: 5432
+    env:
+      clear:
+        POSTGRES_USER: "kamal_pg"
+        POSTGRES_DB: "kamal_pg_production"
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
+
+# Configure custom arguments for Traefik
+# see also blog post: https://guillaumebriday.fr/how-to-deploy-rails-with-kamal-and-ssl-certificate-on-vps
+traefik:
+  options:
+    publish:
+      - "443:443"
+    volume:
+      - "/letsencrypt/acme.json:/letsencrypt/acme.json" # save the configuration file.
+  args:
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    entryPoints.web.http.redirections.entryPoint.to: websecure # force https
+    entryPoints.web.http.redirections.entryPoint.scheme: https
+    entryPoints.web.http.redirections.entrypoint.permanent: true
+    certificatesResolvers.letsencrypt.acme.email: ACME_EMAIL
+    certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web # see role in `servers`
