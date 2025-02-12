@@ -22,5 +22,4 @@ This app can be deployed with the [kamal](https://kamal-deploy.org/) tool. For t
 * Make the page look nice
 * Add turbo / stimulus where it makes sense
 * Upgrade to rails 8
-* Check and expand list of supported countries to all European ones
 * Send emails to myself for new messages or events
