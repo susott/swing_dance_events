@@ -91,7 +91,12 @@ RSpec.describe 'Events', type: :system do
       fill_in('Website', with: 'example.com')
 
       click_button('Submit Event')
-      expect(Event.last.title).to eq 'Some Lindy festival'
+
+      expect(page).to have_content('Success! Your event will be reviewed soon.')
+      expect(page).to have_content('No events found. Please add some.')
+
+      expect(Event.last.title).to eq('Some Lindy festival')
+      expect(Event.last.published?).to be false
     end
   end
 end
